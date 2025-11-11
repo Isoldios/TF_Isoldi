@@ -1,0 +1,34 @@
+OPENQASM 2.0;
+include "qelib1.inc";
+
+qreg x1[2];
+qreg y1[2];
+creg cx1[2];
+creg cy1[2];
+
+gate oracle a,b {
+    cx a,b;
+    cx b,a;
+    cx a,b;
+    x b;
+}
+
+gate qft2 q0,q1 {
+    h q0;
+    u1(pi/4) q1;
+    cx q0,q1;
+    u1(-pi/4) q1;
+    cx q0,q1;
+    u1(pi/4) q1;
+    h q1;
+    cx q0,q1;
+    cx q1,q0;
+    cx q0,q1;
+}
+
+h x1[0];
+h x1[1];
+oracle y1[0],y1[1];
+qft2 x1[0],x1[1];
+measure x1 -> cx1;
+measure y1 -> cy1;
