@@ -1,0 +1,23 @@
+body {
+        font-family: Arial, sans-serif;
+        background-color: #fdfaf6; /* Un tono claro muy sutil */
+        color: #333333;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #5c3a21; /* Marrón cuero oscuro */
+        margin-top: 50px;
+    }
+
+    .producto {
+        background-color: white;
+        border: 1px solid #e0d8d0;
+        border-radius: 8px;
+        padding: 20px;
+        width: 300px;
+        margin: 20px auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
