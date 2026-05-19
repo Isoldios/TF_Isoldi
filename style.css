@@ -1,23 +1,106 @@
+/* Diseño global estilo Terminal */
 body {
-        font-family: Arial, sans-serif;
-        background-color: #fdfaf6; /* Un tono claro muy sutil */
-        color: #333333;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-    }
+    background-color: #0d1117; /* Fondo oscuro */
+    color: #00ff00; /* Verde terminal */
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
 
-    h1 {
-        color: #5c3a21; /* Marrón cuero oscuro */
-        margin-top: 50px;
-    }
+/* Contenedor principal de la "consola" */
+.terminal-container {
+    width: 90%;
+    max-width: 800px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 1px solid #30363d;
+    background-color: #010409;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.15);
+}
 
-    .producto {
-        background-color: white;
-        border: 1px solid #e0d8d0;
-        border-radius: 8px;
-        padding: 20px;
-        width: 300px;
-        margin: 20px auto;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+header {
+    border-bottom: 1px dashed #00ff00;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.subtitle {
+    color: #8b949e;
+    font-size: 0.9em;
+}
+
+/* Paneles de información */
+.panel {
+    margin-bottom: 30px;
+    padding: 15px;
+    border-left: 2px solid #00ff00;
+    background-color: rgba(0, 255, 0, 0.05);
+}
+
+h2 {
+    font-size: 1.2em;
+    margin-top: 0;
+    color: #ffffff; /* Texto blanco para resaltar subtítulos */
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* Estilos del reproductor de video */
+.video-wrapper {
+    width: 100%;
+    margin: 20px 0;
+    border: 1px solid #00ff00;
+    padding: 5px;
+    background: #000;
+    box-sizing: border-box;
+}
+
+video {
+    width: 100%;
+    display: block;
+    outline: none;
+}
+
+/* Lista de herramientas */
+.tool-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tool-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #30363d;
+}
+
+.tool-list span {
+    color: #ffffff;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Pie de página con cursor parpadeante */
+footer {
+    border-top: 1px dashed #00ff00;
+    padding-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.blink {
+    animation: blink-animation 1s steps(2, start) infinite;
+}
+
+@keyframes blink-animation {
+    to { visibility: hidden; }
+}
