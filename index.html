@@ -3,36 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecLab | Criptografía & Esteganografía</title>
+    <title>SecLab | ECC vs. Algoritmo de Shor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Major+Mono+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="scanlines"></div>
+    <div class="grid-bg"></div>
+
     <div class="terminal-container">
         <header>
-            <h1>> SEC_LAB_ROOT</h1>
-            <p class="subtitle">[+] Módulo: Criptografía Avanzada y Esteganografía</p>
+            <div class="header-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="header-path">root@seclab: ~/quantum-crypto</span>
+            </div>
+            <h1 class="glitch" data-text="> SEC_LAB_ROOT">&gt; SEC_LAB_ROOT</h1>
+            <p class="subtitle">[+] Módulo: Criptografía de Curvas Elípticas frente a la Amenaza Cuántica</p>
+            <div class="status-line">
+                <span class="status-tag ok">● ECC ACTIVA</span>
+                <span class="status-tag warn">⚠ SHOR EN HORIZONTE</span>
+                <span class="status-tag info">⌬ Q-BITS MONITOREADOS</span>
+            </div>
         </header>
 
         <main>
             <section class="panel">
-                <h2>>_ ARCHIVO CLASIFICADO: INTRODUCCIÓN</h2>
-                <p>Bienvenido al laboratorio. Entorno dedicado al análisis de algoritmos de cifrado, ofuscación de datos y ocultamiento de información en medios digitales (Esteganografía LSB).</p>
+                <h2>&gt;_ ARCHIVO CLASIFICADO: INTRODUCCIÓN</h2>
+                <p>Bienvenido al laboratorio. Entorno dedicado al análisis de la <strong>seguridad informática</strong> en la era de transición: el cifrado asimétrico moderno se sostiene sobre problemas matemáticos <em>difíciles</em> para una computadora clásica, pero potencialmente <em>triviales</em> para una computadora cuántica suficientemente grande.</p>
+                <p>Aquí estudiamos la <strong>Criptografía de Curvas Elípticas (ECC)</strong>, por qué reemplazó parcialmente a RSA, y cómo el <strong>algoritmo de Shor</strong> amenaza con romper ambos esquemas el día en que la <strong>computación cuántica</strong> alcance la madurez necesaria.</p>
+            </section>
+
+            <!-- CONTENEDOR DE IMAGEN GRANDE #1 -->
+            <section class="panel image-panel">
+                <h2>&gt;_ DIAGRAMA_01: ESTRUCTURA DE UNA CURVA ELÍPTICA</h2>
+                <figure class="image-frame">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/EllipticCurveCatalog.svg"
+                         alt="Catálogo de curvas elípticas mostrando distintas formas de y² = x³ + ax + b"
+                         loading="lazy">
+                    <figcaption>FIG.01 — Familia de curvas y² = x³ + ax + b. La operación de "suma de puntos" sobre estas curvas es fácil de calcular pero casi imposible de invertir (problema del logaritmo discreto elíptico).</figcaption>
+                </figure>
+            </section>
+
+            <section class="panel">
+                <h2>&gt;_ FUNDAMENTO: ¿POR QUÉ ECC?</h2>
+                <p>ECC ofrece el mismo nivel de seguridad que RSA usando claves mucho más cortas, lo que la hace ideal para dispositivos móviles, IoT y TLS moderno.</p>
+                <div class="table-wrap">
+                    <table class="comp-table">
+                        <thead>
+                            <tr><th>Seguridad (bits)</th><th>Clave RSA</th><th>Clave ECC</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>80</td><td>1024 bits</td><td>160 bits</td></tr>
+                            <tr><td>128</td><td>3072 bits</td><td>256 bits</td></tr>
+                            <tr><td>256</td><td>15360 bits</td><td>512 bits</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="glitch-text">// La dureza de ECC reside en el ECDLP: dado P y Q = k·P, hallar k es inviable clásicamente.</p>
             </section>
 
             <section class="panel video-section">
-                <h2>>_ REPRODUCCIÓN DE VIDEO_LOG</h2>
+                <h2>&gt;_ REPRODUCCIÓN DE VIDEO_LOG</h2>
                 <div class="video-wrapper">
-                    <iframe width="100%" height="400" src="https://www.youtube.com/embed/K_pVS09lwEo" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/K_pVS09lwEo" title="Video log SecLab" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <p class="glitch-text">Estado: Conexión segura establecida...</p>
             </section>
 
-            <section class="panel">
-                <h2>>_ HERRAMIENTAS ACTIVAS</h2>
+            <section class="panel threat-panel">
+                <h2>&gt;_ AMENAZA: EL ALGORITMO DE SHOR</h2>
+                <p>Propuesto por Peter Shor en 1994, este algoritmo cuántico factoriza enteros grandes y resuelve logaritmos discretos en tiempo <strong>polinómico</strong>. En la práctica esto significa que rompería tanto RSA como ECC.</p>
+                <div class="code-block">
+<span class="cmt"># Pseudocódigo conceptual del Algoritmo de Shor</span>
+<span class="kw">def</span> <span class="fn">shor</span>(N):
+    a = random_coprime(N)              <span class="cmt"># elegir base aleatoria</span>
+    r = <span class="fn">quantum_period_find</span>(a, N)    <span class="cmt"># QFT: hallar el período (paso cuántico)</span>
+    <span class="kw">if</span> r % 2 != 0: <span class="kw">return</span> retry()
+    factor = gcd(a**(r//2) - 1, N)     <span class="cmt"># reducción clásica</span>
+    <span class="kw">return</span> factor                       <span class="cmt"># clave privada comprometida</span>
+                </div>
                 <ul class="tool-list">
-                    <li><span>[1]</span> Análisis de Cifrado AES-256</li>
-                    <li><span>[2]</span> Inyección de payload en Imágenes (PNG/JPG)</li>
-                    <li><span>[3]</span> Generador de Llaves Públicas/Privadas RSA</li>
+                    <li><span>[!]</span> Rompe RSA factorizando el módulo N</li>
+                    <li><span>[!]</span> Rompe ECC resolviendo el logaritmo discreto elíptico</li>
+                    <li><span>[!]</span> Requiere miles de qubits lógicos estables (aún no disponibles)</li>
+                </ul>
+            </section>
+
+            <!-- CONTENEDOR DE IMAGEN GRANDE #2 -->
+            <section class="panel image-panel">
+                <h2>&gt;_ DIAGRAMA_02: ARQUITECTURA DE UN PROCESADOR CUÁNTICO</h2>
+                <figure class="image-frame">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Bloch_sphere.svg"
+                         alt="Esfera de Bloch que representa el estado de un qubit"
+                         loading="lazy">
+                    <figcaption>FIG.02 — Esfera de Bloch: representación geométrica del estado de un qubit. La superposición y el entrelazamiento son los recursos que el algoritmo de Shor explota para lograr su ventaja exponencial.</figcaption>
+                </figure>
+            </section>
+
+            <section class="panel">
+                <h2>&gt;_ COMPUTACIÓN CUÁNTICA: EL RELOJ CORRE</h2>
+                <p>El riesgo real no es solo futuro. Bajo el modelo <strong>"Harvest Now, Decrypt Later"</strong>, un adversario puede capturar tráfico cifrado hoy y descifrarlo mañana, cuando exista una máquina cuántica capaz de ejecutar Shor a escala.</p>
+                <p>Por eso el NIST ya estandarizó algoritmos de <strong>Criptografía Post-Cuántica (PQC)</strong> resistentes a Shor, basados en retículos (lattices) en lugar de factorización o curvas elípticas.</p>
+            </section>
+
+            <section class="panel">
+                <h2>&gt;_ HERRAMIENTAS ACTIVAS</h2>
+                <ul class="tool-list">
+                    <li><span>[1]</span> Generador de claves ECC (curva secp256k1 / Curve25519)</li>
+                    <li><span>[2]</span> Simulador del problema del logaritmo discreto elíptico (ECDLP)</li>
+                    <li><span>[3]</span> Demostrador del algoritmo de Shor en circuito cuántico simulado</li>
+                    <li><span>[4]</span> Migración a esquemas Post-Cuánticos (Kyber / Dilithium)</li>
                 </ul>
             </section>
         </main>
